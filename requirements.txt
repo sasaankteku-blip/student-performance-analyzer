@@ -1,0 +1,12 @@
+# Student Performance Analyzer — minimal project dependencies
+# Justified by the project plan: CSV analysis, plotting, test suite.
+
+# CSV loading and data analysis
+pandas>=2.0
+
+# Plotting and visualization
+matplotlib>=3.7
+seaborn>=0.12
+
+# Test suite
+pytest>=7.0

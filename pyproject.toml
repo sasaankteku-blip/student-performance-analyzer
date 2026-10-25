@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "student-performance-analyzer"
+version = "0.1.0"
+description = "A beginner-friendly, modular Python CLI for analyzing UCI student performance cohorts"
+authors = [
+    { name = "Student Performance Analyzer Contributors" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "pytest>=7.0",
+]
+
+[project.scripts]
+student-performance-analyzer = "student_performance_analyzer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

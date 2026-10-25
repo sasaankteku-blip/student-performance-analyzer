@@ -1,0 +1,101 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+*.so
+
+# C extensions / compiled binaries
+*.dylib
+*.dll
+*.exe
+
+# Distribution / packaging / build artifacts
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Unit test, coverage, and cache artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+.cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter / IPython Notebook checkpoints
+.ipynb_checkpoints
+
+# IDE, editor, and workspace files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+
+# Secrets, certificates, and private keys
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*secrets*
+*credentials*
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# Logging
+*.log
+logs/
+
+# Operating system junk
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+.BIN/
+
+# Data Governance:
+# UCI Student Performance raw and processed CSV data files are kept local only.
+*.csv
+data/raw/*.csv
+data/processed/*.csv
+
+# Retain directory structure via .gitkeep
+!**/.gitkeep
