@@ -105,3 +105,12 @@ def test_calculate_grade_stats_filters_invalid_scores():
     assert stats.max_val == 14.0
     assert stats.mean == pytest.approx(12.0)
     assert stats.median == 12.0
+
+
+def test_evaluate_course_performance_invalid_threshold(sample_dataframe):
+    """Verify ValueError is raised on non-numeric, out-of-bounds, or NaN/Inf thresholds."""
+    val_df, _ = validate_and_assign_keys(sample_dataframe, "Mathematics", prefix="MAT")
+
+    for bad_threshold in [-1.0, 20.5, float("nan"), float("inf"), "8.0"]:
+        with pytest.raises(ValueError, match="Invalid pass threshold"):
+            evaluate_course_performance(val_df, "Mathematics", threshold=bad_threshold)

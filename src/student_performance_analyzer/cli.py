@@ -36,7 +36,7 @@ def run_pipeline(
 ) -> int:
     """Run the end-to-end Student Performance Analyzer pipeline."""
     # Validate threshold is finite and in range [0, 20]
-    if math.isnan(threshold) or math.isinf(threshold) or not (MIN_GRADE <= threshold <= MAX_GRADE):
+    if not isinstance(threshold, (int, float)) or math.isnan(threshold) or math.isinf(threshold) or not (MIN_GRADE <= threshold <= MAX_GRADE):
         print(
             f"ERROR: Invalid pass threshold '{threshold}'. "
             f"Threshold must be a finite number between {MIN_GRADE}.0 and {MAX_GRADE}.0.",
@@ -54,6 +54,10 @@ def run_pipeline(
     print(f"Figures directory:   {figures_dir}")
     print(f"Pass threshold:      {threshold:.1f} / 20 (Illustrative {pct:.1f}% benchmark)")
     print("-" * 70)
+
+    if not data_dir.is_dir():
+        print(f"ERROR: Dataset directory not found or not a directory: {data_dir}", file=sys.stderr)
+        return 1
 
     math_path = data_dir / "student-mat.csv"
     por_path = data_dir / "student-por.csv"

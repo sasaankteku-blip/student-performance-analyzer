@@ -27,7 +27,7 @@ def test_cli_invalid_threshold_values(tmp_path):
     reports_dir = tmp_path / "reports"
     figures_dir = tmp_path / "figures"
 
-    for invalid_val in [-1.0, 20.1, 25.0, float("nan"), float("inf"), float("-inf")]:
+    for invalid_val in [-1.0, 20.1, 25.0, float("nan"), float("inf"), float("-inf"), "invalid"]:
         exit_code = run_pipeline(
             data_dir=data_dir,
             reports_dir=reports_dir,
@@ -58,3 +58,15 @@ def test_cli_successful_run(tmp_path):
     assert (figures_dir / "pass_rates_comparison.png").is_file()
     assert (figures_dir / "studytime_performance.png").is_file()
     assert (figures_dir / "period_grade_progression.png").is_file()
+
+
+def test_cli_invalid_data_dir(tmp_path):
+    """Verify CLI returns 1 when data-dir does not exist or is a file."""
+    fake_dir = tmp_path / "nonexistent_dir"
+    exit_code = run_pipeline(
+        data_dir=fake_dir,
+        reports_dir=tmp_path / "reports",
+        figures_dir=tmp_path / "figures",
+        threshold=8.0,
+    )
+    assert exit_code == 1

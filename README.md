@@ -143,6 +143,27 @@ python -m student_performance_analyzer --data-dir data/raw --reports-dir reports
 | `--figures-dir` | Path | `reports/figures` | Target directory for generated visualization charts (`.png`) |
 | `--threshold` | Float | `8.0` | Pass benchmark on G3 (0.0 <= threshold <= 20.0, illustrative 40% benchmark) |
 
+### Demo Walkthrough
+
+Run the end-to-end analysis on the official UCI cohorts:
+
+```bash
+python -m student_performance_analyzer --data-dir data/raw --reports-dir reports --figures-dir reports/figures --threshold 8.0
+```
+
+**Verified Execution Highlights:**
+- **Mathematics Cohort (`data/raw/student-mat.csv`):** 395 records | **82.3% pass rate** (325 passed, 70 failed at G3 >= 8.0/20)
+- **Portuguese Cohort (`data/raw/student-por.csv`):** 649 records | **95.4% pass rate** (619 passed, 30 failed at G3 >= 8.0/20)
+- **Audit Findings:** 0 duplicate rows detected; all 1,044 combined rows preserved without silent deletion.
+
+**Generated Artifacts:**
+- **Analytical Report:** `reports/analysis_report.md`
+- **Visualization Charts:**
+  - `reports/figures/grade_distributions.png`
+  - `reports/figures/pass_rates_comparison.png`
+  - `reports/figures/studytime_performance.png`
+  - `reports/figures/period_grade_progression.png`
+
 ## Analytical Results (Benchmark: G3 >= 8.0 / 20)
 
 At the illustrative threshold of **G3 >= 8.0 / 20** (40.0% of the maximum 20-point scale), the pipeline evaluates the two cohorts as follows:
@@ -202,7 +223,7 @@ Mean score trajectories across evaluation periods G1, G2, and final G3:
 
 ## Automated Test Suite
 
-The test suite contains **23 automated unit and integration tests** executed with `pytest`:
+The test suite contains **25 automated unit and integration tests** executed with `pytest`:
 
 ```bash
 pytest -v
@@ -213,10 +234,10 @@ pytest -v
 - `tests/test_loader.py` (4 tests): CSV loading, delimiter parsing, empty file validation, and missing file exception handling.
 - `tests/test_validator.py` (4 tests): 33-column schema verification, surrogate key assignment, range validation (0 <= grade <= 20), and ungradable record isolation.
 - `tests/test_cleaner.py` (2 tests): Exact duplicate detection across all 33 features and row preservation without silent deletion.
-- `tests/test_analyzer.py` (6 tests): Descriptive statistics, boundary conditions (G3=7 fails, G3=8 passes), non-averaging of G1/G2 with G3, ordinal study time aggregation, and cross-course comparisons.
+- `tests/test_analyzer.py` (7 tests): Descriptive statistics, boundary conditions (G3=7 fails, G3=8 passes), non-averaging of G1/G2 with G3, ordinal study time aggregation, cross-course comparisons, and threshold parameter validation.
 - `tests/test_visualizer.py` (1 test): Headless rendering and validation of all four chart PNG files.
 - `tests/test_reporter.py` (3 tests): Markdown report synthesis, dynamic threshold reporting, and attribution checks.
-- `tests/test_cli.py` (3 tests): Argument handling, missing file diagnostics, and validation of illegal threshold inputs (negative, >20, NaN, inf).
+- `tests/test_cli.py` (4 tests): Argument handling, dataset directory validation, missing file diagnostics, and validation of illegal threshold inputs (negative, >20, NaN, inf, non-numeric).
 
 ## Limitations & Non-Causal Disclaimer
 

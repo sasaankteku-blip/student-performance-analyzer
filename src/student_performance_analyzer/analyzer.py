@@ -1,5 +1,6 @@
 """Statistical analysis and pass/fail evaluation for student performance."""
 
+import math
 from dataclasses import dataclass, field
 import pandas as pd
 from .constants import DEFAULT_PASS_THRESHOLD, STUDYTIME_LABELS, MIN_GRADE, MAX_GRADE
@@ -102,6 +103,12 @@ def evaluate_course_performance(
     - Never average G1/G2/G3 for the pass decision.
     - studytime treated strictly as ordinal categories.
     """
+    if not isinstance(threshold, (int, float)) or math.isnan(threshold) or math.isinf(threshold) or not (MIN_GRADE <= threshold <= MAX_GRADE):
+        raise ValueError(
+            f"Invalid pass threshold '{threshold}'. "
+            f"Threshold must be a finite number between {MIN_GRADE} and {MAX_GRADE}."
+        )
+
     evaluated = df.copy()
 
     # Apply row-aligned boolean mask for gradable records
